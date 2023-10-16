@@ -13,10 +13,22 @@ router.post('/add', async (req, res) => {
         // Generate PDF
         const pdfPath = pdfService.generatePDF(req.body);
 
-        res.status(200).send({ message: 'Data saved and PDF generated', pdfPath });
+        res.status(200).send({ message: 'Data saved and PDF generated', ...pdfPath });
     } catch (error) {
         res.status(500).send({ error: 'Server error' });
     }
 });
+
+
+router.get('/all', async (req, res) => {
+    console.log("get");
+    try {
+    
+      const certificates = await Certificate.find({});
+      res.json(certificates);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  });
 
 module.exports = router;

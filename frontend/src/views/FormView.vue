@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed, toRefs } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
+import DataTable from '@/components/DataTable.vue';
 
 
 const formData = reactive({
@@ -63,7 +64,7 @@ const handleSubjectChange = () => {
 </script>
 
 <template>
-  <div id="app" class="flex center">
+  <div id="app" class="flex flex-column two center">
     <div>
       <h2>Create Certificate</h2>
       <form @submit.prevent="submitForm">
@@ -130,6 +131,7 @@ const handleSubjectChange = () => {
         </p>
       </form>
     </div>
+    <DataTable></DataTable>
   </div>
 </template>
 

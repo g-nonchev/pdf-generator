@@ -9,7 +9,9 @@ const DB_STRING = 'mongodb://localhost:27017/certificatesDB';
 
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://127.0.0.1:5173'  // replace with your Vue app's address
+}));
 app.use(bodyParser.json());
 
 // Connect to MongoDB
