@@ -62,7 +62,7 @@ const handleSubjectChange = () => {
 </script>
 
 <template>
-  <div id="app" class="flex two center">
+  <div id="app" class="flex center">
     <div>
       <h2>Language Certificate Form</h2>
       <form @submit.prevent="submitForm">
