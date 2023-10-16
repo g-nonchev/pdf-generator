@@ -2,6 +2,7 @@
 import { ref, reactive, computed, toRefs } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 
+
 const formData = reactive({
   name: '',
   subject: '',
@@ -20,7 +21,7 @@ const languages = [
 
 const teachers = ['Mr. Smith', 'Mrs. Johnson', 'Ms. Lee'];
 
-const dateFormat = ref('dd-mm-yyyy');
+const dateFormat = ref('dd-MM-yyyy');
 
 const selectedLanguageLevels = computed(() => {
   const selectedLanguage = languages.find(lang => lang.name === formData.subject);
@@ -64,7 +65,7 @@ const handleSubjectChange = () => {
 <template>
   <div id="app" class="flex center">
     <div>
-      <h2>Language Certificate Form</h2>
+      <h2>Create Certificate</h2>
       <form @submit.prevent="submitForm">
 
         <!-- Name -->
