@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+
+import AddForm from '@/components/AddForm.vue';
+import DataTable from '@/components/DataTable.vue';
+
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <div id="app" class="flex demo">
+    <AddForm></AddForm>
+    <DataTable></DataTable>
+  </div>
 </template>

@@ -20,3 +20,15 @@ connectDB().then(() => {
     console.log(`Server started on http://localhost:${PORT}`);
   });
 });
+
+const Sequence = require('./models/sequence.model');
+
+const initializeSequencesCollection = async () => {
+  const certificateSequence = await Sequence.findById('certificate');
+  if (!certificateSequence) {
+    await Sequence.create({ _id: 'certificate', sequence_value: 0 });
+    console.log("Initialized the 'certificate' sequence.");
+  }
+};
+
+initializeSequencesCollection();

@@ -14,7 +14,7 @@
         </thead>
         <tbody>
           <tr v-for="certificate in certificates" :key="certificate._id">
-            <td>{{ certificate._id }}</td>
+            <td>{{ certificate.number }}</td>
             <td>{{ certificate.name }}</td>
             <td>{{ certificate.subject }}</td>
             <td>{{ certificate.level }}</td>
@@ -31,16 +31,7 @@
   
   <script setup lang="ts">
   import { ref, onMounted } from 'vue';
-  
-  const certificates = ref([]);
-  
-  onMounted(async () => {
-    try {
-      const response = await fetch('http://localhost:4621/certificates/all');
-      certificates.value = await response.json();
-    } catch (error) {
-      console.error("Failed to fetch certificates:", error);
-    }
-  });
+  import { certificates, fetchCertificates } from '@/composables/useCertificates.ts';
+  onMounted(fetchCertificates);
   </script>
   

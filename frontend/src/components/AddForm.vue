@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed, toRefs } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
-import DataTable from '@/components/DataTable.vue';
-
+import { fetchCertificates } from '@/composables/useCertificates.ts';
 
 const formData = reactive({
   name: '',
@@ -52,6 +51,9 @@ const submitForm = async () => {
     });
     const data = await response.json();
     console.log(data);
+    if(response.ok){
+      fetchCertificates();
+    }
   } catch (error) {
     console.error('Error:', error);
   }
@@ -64,9 +66,7 @@ const handleSubjectChange = () => {
 </script>
 
 <template>
-  <div id="app" class="flex flex-column two center">
-    <div>
-      <h2>Create Certificate</h2>
+    <div >
       <form @submit.prevent="submitForm">
 
         <!-- Name -->
@@ -131,8 +131,4 @@ const handleSubjectChange = () => {
         </p>
       </form>
     </div>
-    <DataTable></DataTable>
-  </div>
 </template>
-
-
