@@ -15,13 +15,13 @@ const getNextSequenceValue = async (sequenceName) => {
 };
 
 router.post('/add', async (req, res) => {
+  const certificateData = new Certificate({
+    ...req.body
+  });
   try {
-    const certificateData = req.body;
     certificateData.number = await getNextSequenceValue('certificate');
-
-    const certificate = new Certificate(certificateData);
-    await certificate.save();
-    res.status(200).json({ message: 'Certificate added!', certificate });
+    const savedCertificate = await certificateData.save();
+    res.json(savedCertificate);
   } catch (error) {
     res.status(500).json({ message: 'Failed to add certificate', error });
   }
@@ -30,7 +30,7 @@ router.post('/add', async (req, res) => {
 
 router.get('/all', async (req, res) => {
   try {
-    const certificates = await Certificate.find({});
+    const certificates = await Certificate.find().sort({ number: -1 });
     res.json(certificates);
   } catch (error) {
     res.status(500).send(error.message);

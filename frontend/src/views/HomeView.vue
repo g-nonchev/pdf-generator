@@ -8,6 +8,5 @@ import DataTable from '@/components/DataTable.vue';
 <template>
   <div id="app" class="flex demo">
     <AddForm></AddForm>
-    <DataTable></DataTable>
   </div>
 </template>

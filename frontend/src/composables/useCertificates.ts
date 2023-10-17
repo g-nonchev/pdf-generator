@@ -5,6 +5,7 @@ const certificates = ref([]);
 const fetchCertificates = async () => {
   try {
     const response = await fetch('http://localhost:4621/certificates/all');
+    
     const data = await response.json();
     certificates.value = data;
   } catch (error) {
@@ -12,4 +13,13 @@ const fetchCertificates = async () => {
   }
 };
 
-export { certificates, fetchCertificates };
+
+
+const useCertificates = () => {
+  fetchCertificates();
+  return certificates;
+};
+
+
+
+export { certificates, fetchCertificates, useCertificates };
