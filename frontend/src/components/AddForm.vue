@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive, computed, toRefs, onMounted } from 'vue';
-import { useCertificates, createItem} from '@/services/apiService.ts';
+import { createItem } from '@/services/apiService.ts';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import DataTable from './DataTable.vue';
 
@@ -13,8 +13,6 @@ const formData = reactive({
   fromDate: '',
   toDate: ''
 });
-
-const certificates = useCertificates();
 
 const languages = [
   { id: 1, name: 'English', levels: ['Elementary', 'Intermediate'] },
@@ -64,7 +62,7 @@ const handleSubjectChange = () => {
       </p>
 
       <!-- From Date -->
-      <div class="flex two">
+      <div class="flex three grow demo">
         <p>
           <label>From: </label>
           <VueDatePicker v-model="formData.fromDate" :format="dateFormat" auto-apply :enable-time-picker="false">
@@ -77,13 +75,15 @@ const handleSubjectChange = () => {
           <VueDatePicker v-model="formData.toDate" :format="dateFormat" auto-apply :enable-time-picker="false">
           </VueDatePicker>
         </p>
+
+        <!-- Duration -->
+        <p>
+          <label>Duration (in hrs): </label>
+          <input type="number" v-model="formData.duration" required>
+        </p>
+
       </div>
 
-      <!-- Duration -->
-      <p>
-        <label>Duration (in weeks): </label>
-        <input type="number" v-model="formData.duration" required>
-      </p>
 
       <!-- Language/Subject -->
       <p>
@@ -121,5 +121,4 @@ const handleSubjectChange = () => {
       </p>
     </form>
   </div>
-  <DataTable :certificates="certificates" />
 </template>

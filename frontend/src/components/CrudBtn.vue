@@ -12,12 +12,12 @@
       @click="handleEdit"
       class="is-rows-el quick-btn btn icon-edit-alt"
     ></button>
-    <button
+    <!-- <button
       type="button"
       :data-number="id"
       @click="handleDelete"
       class="is-rows-el btn error quick-btn icon-trash"
-    ></button>
+    ></button> -->
   </div>
 </template>
 

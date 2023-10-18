@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
-import {certificates} from '@/services/apiService.ts';
+import { ref, reactive, onMounted } from 'vue';
+import {certificates, getAllItems} from '@/services/apiService.ts';
 import CrudBtn from '@/components/CrudBtn.vue';
 import dayjs from 'dayjs';
+
+onMounted(() => {
+  getAllItems()
+});
 
 const formatDate = (date: Date) => dayjs(date).format('DD-MM-YYYY');
 
