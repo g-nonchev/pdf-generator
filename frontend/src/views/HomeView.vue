@@ -3,21 +3,19 @@ import { ref} from 'vue';
 import Modal from '@/components/Modal.vue';
 import AddForm from '@/components/AddForm.vue';
 import DataTable from '@/components/DataTable.vue';
+import { useModal } from '@/composables/useModal';
+import { useModalStore } from '@/stores/modalStore'
 
-const isModalOpen = ref(false);
-
-// Method to toggle the modal's state
-const toggleModal = () => {
-  isModalOpen.value = !isModalOpen.value;
-}
-
+const modalStore = useModalStore()
+const modal = useModal();
 </script>
 
 <template>
   <div id="app" class="flex demo">
-    <button @click="toggleModal">Add New</button>
+    {{ modalStore.regNumber }}
+    <button class="success full" @click="modalStore.toggleModal">Add New</button>
 
-    <Modal v-model="isModalOpen">
+    <Modal v-model="modalStore.isModalOpen">
       <!-- Your existing form goes here -->
       <AddForm></AddForm>
     </Modal>

@@ -2,7 +2,10 @@
 import { ref, reactive, computed, toRefs, onMounted } from 'vue';
 import { createItem } from '@/services/apiService.ts';
 import VueDatePicker from '@vuepic/vue-datepicker';
-import DataTable from './DataTable.vue';
+
+import { useModalStore } from '@/stores/modalStore'
+
+const modalStore = useModalStore().$state.regNumber
 
 const formData = reactive({
   name: '',
@@ -53,6 +56,7 @@ const handleSubjectChange = () => {
 
 <template>
   <div>
+    {{ modalStore }}
     <form @submit.prevent="submitForm">
 
       <!-- Name -->

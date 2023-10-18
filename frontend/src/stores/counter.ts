@@ -10,3 +10,15 @@ export const useCounterStore = defineStore('counter', () => {
 
   return { count, doubleCount, increment }
 })
+
+export const useModalStore = defineStore({
+  id: 'modal',
+  state: () => ({
+    isModalOpen: false
+  }),
+  actions: {
+    toggleModal() {
+      this.isModalOpen = !this.isModalOpen
+    }
+  }
+})

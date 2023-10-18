@@ -23,18 +23,24 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useModalStore } from '@/stores/modalStore'
+import { useModal } from '@/composables/useModal';
 import { editItem, deleteItem, downloadItem } from '@/services/apiService.ts';
 
 const { id } = defineProps({
   id: Number,
 });
 
+const modal = useModal();
+const modalStore = useModalStore()
 const handleDownload = () => {
   downloadItem(id);
   console.log(id + " Download button clicked!!");
 };
 
 const handleEdit = () => {
+  modalStore.toggleModal();
+  modalStore.addRegNumber(id);
   console.log(id + " Edit button clicked!!");
 };
 
