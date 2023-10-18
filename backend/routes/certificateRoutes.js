@@ -30,7 +30,7 @@ router.post('/add', async (req, res) => {
 
 router.get('/all', async (req, res) => {
   try {
-    const certificates = await Certificate.find().sort({ number: -1 });
+    const certificates = (await Certificate.find().sort({ regNumber: -1 }));
     res.json(certificates);
   } catch (error) {
     res.status(500).send(error.message);
