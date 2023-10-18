@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive, computed, toRefs, onMounted } from 'vue';
-import {useCertificates, fetchCertificates } from '@/composables/useCertificates.ts';
+import { useCertificates, createItem} from '@/services/apiService.ts';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import DataTable from './DataTable.vue';
 
@@ -38,33 +38,12 @@ const isValidDates = () => {
   return true;
 };
 
-
-const addCertificate = async (formData : any) => {
-    try {
-        const response = await fetch('http://localhost:4621/certificates/add', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ ...formData })
-        });
-        const data = await response.json();
-        certificates.value = [data, ...certificates.value];
-        // fetchCertificates();
-        callChildMethod();
-        console.log(data);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-}
-
-
 const submitForm = async () => {
   if (!isValidDates()) {
     alert('Invalid dates: "To" date cannot be before "From" date.');
     return;
   }
-  addCertificate(formData)
+  createItem(formData)
 };
 
 
@@ -72,15 +51,6 @@ const handleSubjectChange = () => {
   formData.level = ''; // Reset level when subject changes
 };
 
-
-const childRef = ref<any>(null);
-
-const callChildMethod = () => {
-  if (childRef.value && typeof childRef.value.doSearch === 'function') {
-    childRef.value.doSearch(0, 10, 'number', 'desc');
-  }
-
-};
 </script>
 
 <template>
@@ -91,6 +61,28 @@ const callChildMethod = () => {
       <p>
         <label>Name: </label>
         <input v-model="formData.name" type="text" required>
+      </p>
+
+      <!-- From Date -->
+      <div class="flex two">
+        <p>
+          <label>From: </label>
+          <VueDatePicker v-model="formData.fromDate" :format="dateFormat" auto-apply :enable-time-picker="false">
+          </VueDatePicker>
+        </p>
+
+        <!-- To Date -->
+        <p>
+          <label>To: </label>
+          <VueDatePicker v-model="formData.toDate" :format="dateFormat" auto-apply :enable-time-picker="false">
+          </VueDatePicker>
+        </p>
+      </div>
+
+      <!-- Duration -->
+      <p>
+        <label>Duration (in weeks): </label>
+        <input type="number" v-model="formData.duration" required>
       </p>
 
       <!-- Language/Subject -->
@@ -113,26 +105,6 @@ const callChildMethod = () => {
         </select>
       </p>
 
-      <!-- From Date -->
-      <p>
-        <label>From: </label>
-        <VueDatePicker v-model="formData.fromDate" :format="dateFormat" auto-apply :enable-time-picker="false">
-        </VueDatePicker>
-      </p>
-
-      <!-- To Date -->
-      <p>
-        <label>To: </label>
-        <VueDatePicker v-model="formData.toDate" :format="dateFormat" auto-apply :enable-time-picker="false">
-        </VueDatePicker>
-      </p>
-
-      <!-- Duration -->
-      <p>
-        <label>Duration (in weeks): </label>
-        <input type="number" v-model="formData.duration" required>
-      </p>
-
       <!-- Teachers Selection -->
       <p>
         <label>Teacher: </label>
@@ -145,10 +117,9 @@ const callChildMethod = () => {
 
       <!-- Submit Button -->
       <p>
-        <button type="submit">Submit</button>
+        <button type="submit">Save</button>
       </p>
     </form>
   </div>
-  <DataTable :value="certificates" ref="childRef"/>
-  <!-- <DataTable :value="certificates" /> -->
+  <DataTable :certificates="certificates" />
 </template>

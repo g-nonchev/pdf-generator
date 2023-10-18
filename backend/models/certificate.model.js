@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const certificateSchema = new mongoose.Schema({
-    number: Number,
+    regNumber: Number,
     name: String,
     fromDate: Date,
     toDate: Date,

@@ -23,7 +23,7 @@ function generatePDF(data) {
         const doc = new PDFDocument({ layout: 'landscape', size: 'A4' });
 
         // Create a unique filename using a timestamp
-        const filePath = path.join(__dirname, '..','..', 'downloads', `${data.firstName}_${Date.now()}_certificate.pdf`);
+        const filePath = path.join(__dirname, '..','..', 'downloads', `${data.regNumber}.pdf`);
         const fontAlger = path.join(__dirname, '..', 'fonts', 'ALGER.TTF');
         const backgroundImage = path.join(__dirname, '..','img', 'c-en.png');
 
@@ -135,7 +135,7 @@ function generatePDF(data) {
         }
 
         doc.font('fontAlger').fontSize(data.content.title.fontSize).moveDown(data.content.title.down).text(data.content.title.text, { align: 'center' });
-        doc.font('Times-Bold').fontSize(18).moveDown(2).text(data.content.subtitle, { align: 'center' });
+        doc.font('Times-Bold').fontSize(18).moveDown(2).text(data.content.subtitle+' ' + data.regNumber, { align: 'center' });
         doc.font('Times-Bold').fontSize(24).moveDown(1).text(data.name, { align: 'center' });
         doc.font('Times-Bold').fontSize(12).moveDown(0.2).text(data.content.duration, { align: 'center' });
         doc.font('Times-Bold').fontSize(12).text(data.content.duration2, { align: 'center' });

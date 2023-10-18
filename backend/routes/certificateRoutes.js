@@ -19,7 +19,7 @@ router.post('/add', async (req, res) => {
     ...req.body
   });
   try {
-    certificateData.number = await getNextSequenceValue('certificate');
+    certificateData.regNumber = await getNextSequenceValue('certificate');
     const savedCertificate = await certificateData.save();
     res.json(savedCertificate);
   } catch (error) {
@@ -34,6 +34,36 @@ router.get('/all', async (req, res) => {
     res.json(certificates);
   } catch (error) {
     res.status(500).send(error.message);
+  }
+});
+
+router.get('/download/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Fetch certificate details for the given ID using the Mongoose model
+    const certificateData = await Certificate.findOne({ regNumber: id });
+
+    if (!certificateData) {
+      res.status(404).send('Certificate not found');
+      return;
+    }
+
+    const filePath = await pdfService.generatePDF(certificateData); // Convert the Mongoose document to a plain JS object
+
+    // Use Express's res.download() method to send the file
+    res.download(filePath, (err) => {
+      if (err) {
+        console.error('Error sending file:', err);
+        res.status(500).send('Error downloading the certificate');
+      }
+
+      // Optionally delete the file after sending to the client
+      // fs.unlinkSync(filePath);
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Error processing the request');
   }
 });
 

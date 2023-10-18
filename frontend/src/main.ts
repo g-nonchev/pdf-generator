@@ -1,5 +1,6 @@
 import './assets/main.css'
 import 'picnic/picnic.min.css';
+import '@/assets/fontello.css';
 import '@vuepic/vue-datepicker/dist/main.css';
 
 import { createApp } from 'vue'
