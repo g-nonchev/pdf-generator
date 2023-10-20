@@ -40,7 +40,7 @@
     background: white;
     padding: 20px;
     border-radius: 5px;
-    max-width: 80%;
+    max-width: 50%;
     max-height: 80%;
     overflow: auto;
   }

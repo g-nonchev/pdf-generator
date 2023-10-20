@@ -8,7 +8,8 @@ const certificateSchema = new mongoose.Schema({
     subject: String,
     level: String,
     duration: Number,
-    teacher: String
+    teacher: String,
+    isKid: Boolean
 });
 
 module.exports = mongoose.model('Certificate', certificateSchema);

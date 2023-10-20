@@ -3,15 +3,16 @@
     <button
       type="button"
       :data-number="id"
-      @click="handleDownload"
-      class="is-rows-el quick-btn btn success icon-download-alt"
+      @click="handleEdit"
+      class="is-rows-el quick-btn btn icon-edit-alt"
     ></button>
     <button
       type="button"
       :data-number="id"
-      @click="handleEdit"
-      class="is-rows-el quick-btn btn icon-edit-alt"
+      @click="handleDownload"
+      class="is-rows-el quick-btn btn success icon-download-alt"
     ></button>
+    
     <!-- <button
       type="button"
       :data-number="id"

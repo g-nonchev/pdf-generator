@@ -17,9 +17,9 @@ const openModal = () => {
 
 <template>
   <div id="app" class="flex demo">
-    {{ modalStore.regNumber }}
-    <button class="success full" @click="openModal">Add New</button>
-
+    <div class="p-1 full">
+      <button class="success full" @click="openModal">Add New</button>
+    </div>
     <Modal v-model="modalStore.isModalOpen">
       <!-- Your existing form goes here -->
       <AddForm></AddForm>

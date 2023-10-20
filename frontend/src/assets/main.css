@@ -30,3 +30,27 @@ table {
   line-height: 1;
   background: #fff;
 }
+
+.p-1{
+  padding: 1rem;
+}
+
+.p-2{
+  padding: 2rem;
+}
+
+.p-3{
+  padding: 3rem;
+}
+
+.p-4{
+  padding: 4rem;
+}
+
+.p-5{
+  padding: 5rem;
+}
+
+.edited-row {
+  background-color: #fdff79!important; /* Example: light blue background */
+}

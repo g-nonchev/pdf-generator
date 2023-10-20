@@ -30,7 +30,9 @@ router.post('/add', async (req, res) => {
 
 router.get('/all', async (req, res) => {
   try {
-    const certificates = (await Certificate.find().sort({ regNumber: -1 }));
+    const certificates = await Certificate.find()
+      .sort({ regNumber: -1 })
+      .limit(50);
     res.json(certificates);
   } catch (error) {
     res.status(500).send(error.message);
@@ -61,6 +63,30 @@ router.get('/download/:id', async (req, res) => {
       // Optionally delete the file after sending to the client
       // fs.unlinkSync(filePath);
     });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Error processing the request');
+  }
+});
+
+router.put('/edit/:number', async (req, res) => {
+  const { number } = req.params;
+  
+  try {
+    // Find the certificate by its number and update it with the provided data
+    const updatedCertificate = await Certificate.findOneAndUpdate(
+      { regNumber: number },
+      req.body,
+      { new: true } // This option ensures the updated document is returned
+    );
+
+    if (!updatedCertificate) {
+      res.status(404).send('Certificate not found');
+      return;
+    }
+
+    // Return the updated certificate data
+    res.json(updatedCertificate);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).send('Error processing the request');

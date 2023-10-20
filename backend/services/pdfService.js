@@ -25,7 +25,7 @@ function generatePDF(data) {
         // Create a unique filename using a timestamp
         const filePath = path.join(__dirname, '..','..', 'downloads', `${data.regNumber}.pdf`);
         const fontAlger = path.join(__dirname, '..', 'fonts', 'ALGER.TTF');
-        const backgroundImage = path.join(__dirname, '..','img', 'c-en.png');
+        const backgroundImage = data.isKid? path.join(__dirname, '..','img', 'backgr-kid.png'): path.join(__dirname, '..','img', 'backgr.png');
 
         doc.registerFont('fontAlger', fontAlger);
 

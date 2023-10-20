@@ -8,6 +8,12 @@ onMounted(() => {
   getAllItems()
 });
 
+const certificateClicked = ref(null); // a new ref to store the clicked certificate's regNumber
+
+const handleRowClick = (certificate: any) => {
+  certificateClicked.value = certificate.regNumber; // set the clicked certificate's regNumber
+};
+
 const formatDate = (date: Date) => dayjs(date).format('DD-MM-YYYY');
 
 </script>
@@ -25,11 +31,14 @@ const formatDate = (date: Date) => dayjs(date).format('DD-MM-YYYY');
           <th>From_Date</th>
           <th>To_Date__</th>
           <th>Teacher</th>
-          <th>Teacher</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="certificate in certificates" :key="certificate._id">
+        <tr v-for="certificate in certificates" 
+        :key="certificate._id" 
+        :class="{ 'edited-row': certificate.regNumber === certificateClicked }"
+        @click="handleRowClick(certificate)">
           <td>{{ certificate.regNumber }}</td>
           <td>{{ certificate.name }}</td>
           <td>{{ certificate.subject }}</td>

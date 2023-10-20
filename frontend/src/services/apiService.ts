@@ -1,5 +1,4 @@
 import { ref } from 'vue';
-
 interface rowData {
     _id: String,
     regNumber: Number,
@@ -9,7 +8,8 @@ interface rowData {
     subject: String,
     level: String,
     duration: Number,
-    teacher: String
+    teacher: String,
+    isKid: Boolean
 }
 
 const certificates = ref<rowData[]>([]);
@@ -44,11 +44,11 @@ const editItem = async (id: string, formData: any) => {
         });
 
         const data = await response.json();
-
+        
         // If the edit was successful, update the local state.
         // Assuming the API returns the updated item when the edit is successful.
         if (data && data._id) {
-            const index = certificates.value.findIndex(cert => cert._id === id);
+            const index = certificates.value.findIndex(cert => cert._id === data._id);
             if (index !== -1) {
                 certificates.value[index] = data;
                 console.log(`Item with ID ${id} updated!`);

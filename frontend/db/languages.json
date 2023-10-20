@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "name": "English",
+      "levels": ["Elementary", "Intermediate"],
+      "teachers": ["Mr. A", "Mrs. B"]
+    },
+    {
+      "id": 2,
+      "name": "Spanish",
+      "levels": ["A1", "A2", "B1", "B2"],
+      "teachers": ["Mr. A", "Mrs. B"]
+    },
+    {
+      "id": 3,
+      "name": "Deutsch",
+      "levels": ["Niveau A1", "Niveau A2"],
+      "teachers": ["Mr. A", "Mrs. B"]
+    }
+  ]
+  
