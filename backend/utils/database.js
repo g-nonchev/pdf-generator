@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-const DB_STRING = 'mongodb://localhost:27017/certificatesDB'; // Replace with your MongoDB connection string
+const USERNAME = 'certificatesDB';
+const PASSWORD = encodeURIComponent('mrjtH4KSyHQg5Ooc');  // Ensure that special characters are URL-encoded
+const DB_STRING = `mongodb://${USERNAME}:${PASSWORD}@vps.ezikovdom.com:27017/certificatesDB`;
 
 const connectDB = async () => {
     await mongoose.connect(DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true });

@@ -7,8 +7,17 @@ const PORT = 4621;
 const app = express();
 
 // Middleware
+const allowedOrigins = ['http://127.0.0.1:5173', 'http://127.0.0.1:4173', 'http://localhost:5173', 'http://localhost:4173'];
+
 app.use(cors({
-  origin: 'http://localhost:5173'  // replace with your Vue app's address
+  origin: function (origin, callback) {
+    // If no origin or if it's found in the list, allow, else reject
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
 }));
 app.use(express.json());
 

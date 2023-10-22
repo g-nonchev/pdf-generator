@@ -1,0 +1,46 @@
+[
+    {
+      "id": 1,
+      "name": "English",
+      "levels": ["Beginner A1", "Elementary A2", "Pre-Intermediate B1", "Intermediate", "Intermediate B1+", "Upper Intermediate B2", "Advanced C1", "B2 Medical English "],
+      "teachers": [
+        "Temenuzhka Deliyska",
+        "Kadri Dumba",
+        "Kalina Georgieva",
+        "Marija Lesovska",
+        "Smilena Mihaleva",
+        "Dilyana Georgieva"
+    ]
+    },
+    {
+        "id": 2,
+        "name": "Business English",
+        "levels": ["Beginner A1", "Elementary A2", "Pre-Intermediate B1", "Intermediate", "Intermediate B1+", "Upper Intermediate B2", "Advanced C1", "B2 Medical English "],
+        "teachers": [
+          "Temenuzhka Deliyska",
+          "Kadri Dumba",
+          "Kalina Georgieva",
+          "Marija Lesovska",
+          "Smilena Mihaleva",
+          "Dilyana Georgieva"
+      ]
+      },
+    {
+      "id": 3,
+      "name": "Spanish",
+      "levels": ["A1","A1.1", "A2", "B1", "B2","Colega 1", "Nivel Principiante – A1"],
+      "teachers": [
+        "Atanaska Madzharova", "Krasimira Kostova"
+    ]
+    },
+    {
+      "id": 4,
+      "name": "Deutsch",
+      "levels": ["Niveau A1", "Niveau A2"],
+      "teachers": [
+        "Eva Stefanova",
+        "Rumyana Kalinova"
+    ]
+    }
+  ]
+  

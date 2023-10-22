@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref, reactive, computed, toRefs, onMounted } from 'vue';
+import { ref, reactive, computed, onMounted } from 'vue';
 import { certificates, createItem, editItem } from '@/services/apiService.ts';
 import VueDatePicker from '@vuepic/vue-datepicker';
-import { useModalStore } from '@/stores/modalStore'
+import { useModalStore } from '@/stores/modalStore';
 
-const modal = useModalStore()
+const modal = useModalStore();
 const regNumber = modal.regNumber;
 
 const formData = reactive({
@@ -29,34 +29,23 @@ if (regNumber !== 0) {
   }
 }
 
-const languages = [
-  {
-    id: 1,
-    name: 'English',
-    levels: ['Elementary', 'Intermediate'],
-    teachers: ['Mr. A', 'Mrs. B']
-  },
-  {
-    id: 2,
-    name: 'Spanish',
-    levels: ['A1', 'A2', 'B1', 'B2'],
-    teachers: ['Mr. A', 'Mrs. B']
-  },
-  {
-    id: 3,
-    name: 'Deutsch',
-    levels: ['Niveau A1', 'Niveau A2'],
-    teachers: ['Mr. A', 'Mrs. B']
+const languages = ref([]); // Initialize languages as an empty array
+
+onMounted(async () => {
+  try {
+    const response = await fetch('../../db/languages.json'); // Fetch the JSON file
+    const data = await response.json();
+    languages.value = data; // Populate the languages ref with data from the JSON file
+  } catch (error) {
+    console.error("Error loading languages:", error);
   }
-];
-
-
+});
 
 const dateFormat = ref('dd-MM-yyyy');
 
 const getSelectedLanguage = computed(() => {
-  const selectedLanguage = languages.find(lang => lang.name === formData.subject);
-  return selectedLanguage ? selectedLanguage : languages[1];
+  const selectedLanguage = languages.value.find(lang => lang.name === formData.subject);
+  return selectedLanguage ? selectedLanguage : [];
 });
 
 const isValidDates = () => {
@@ -76,15 +65,14 @@ const submitForm = async () => {
     modal.toggleModal();
     return;
   }
-  createItem(formData)
+  createItem(formData);
 };
-
 
 const handleSubjectChange = () => {
   formData.level = ''; // Reset level when subject changes
 };
-
 </script>
+
 
 <template>
   <div>
@@ -134,7 +122,7 @@ const handleSubjectChange = () => {
       </p>
 
       <!-- Levels -->
-      <p class="p-1" v-if="getSelectedLanguage.levels.length">
+      <p class="p-1" v-if="getSelectedLanguage">
         <label>Level: </label>
         <select v-model="formData.level">
           <option v-for="level in getSelectedLanguage.levels" :key="level">
@@ -145,7 +133,7 @@ const handleSubjectChange = () => {
 
       <!-- Teachers Selection -->
 
-      <p class="p-1" v-if="getSelectedLanguage.teachers.length">
+      <p class="p-1" v-if="getSelectedLanguage">
         <label>Teacher: </label>
         <select v-model="formData.teacher">
           <option v-for="teacher in getSelectedLanguage.teachers" :key="teacher" :value="teacher">
