@@ -1,7 +1,7 @@
 const express = require('express');
 const connectDB = require('./utils/database');
 const cors = require('cors');
-const certificateRoutes = require('./routes/certificateRoutes');
+const certificateRoutes = require('./routes/certificate.routes');
 
 const PORT = 4621;
 const app = express();

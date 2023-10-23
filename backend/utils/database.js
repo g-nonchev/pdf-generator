@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const USERNAME = 'certificatesDB';
-const PASSWORD = encodeURIComponent('mrjtH4KSyHQg5Ooc');  // Ensure that special characters are URL-encoded
-const DB_STRING = `mongodb://${USERNAME}:${PASSWORD}@vps.ezikovdom.com:27017/certificatesDB`;
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const connectDB = async () => {
-    await mongoose.connect(DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
     console.log('Connected to MongoDB');
 };
 
