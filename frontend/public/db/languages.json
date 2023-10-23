@@ -41,6 +41,14 @@
         "Eva Stefanova",
         "Rumyana Kalinova"
     ]
+    },
+    {
+      "id": 5,
+      "name": "Български",
+      "levels": ["A1","A1.1", "A2", "B1", "B2"],
+      "teachers": [
+        "Мария Лесовска"
+    ]
     }
   ]
   

@@ -25,9 +25,17 @@ function generatePDF (data) {
         // Create a unique filename using a timestamp
         const filePath = path.join(__dirname, '..', '..', 'downloads', `${data.regNumber}.pdf`);
         const fontAlger = path.join(__dirname, '..', 'fonts', 'ALGER.TTF');
+        const timesRoman = path.join(__dirname, '..', 'fonts', 'times.ttf');
+        const timesBold = path.join(__dirname, '..', 'fonts', 'times.ttf');
+        const georgia = path.join(__dirname, '..', 'fonts', 'georgia.ttf');
+        const georgiaB = path.join(__dirname, '..', 'fonts', 'georgiab.ttf');
         const backgroundImage = data.isKid ? path.join(__dirname, '..', 'img', 'backgr-kid.png') : path.join(__dirname, '..', 'img', 'backgr.png');
 
         doc.registerFont('fontAlger', fontAlger);
+        doc.registerFont('Times-Roman', timesRoman);
+        doc.registerFont('Times-Bold', timesBold);
+        doc.registerFont('Georgia', georgia);
+        doc.registerFont('Georgia-B', georgiaB);
 
         // Ensure the 'downloads' directory exists
         if (!fs.existsSync(path.dirname(filePath))) {
@@ -63,9 +71,10 @@ function generatePDF (data) {
             case 'Spanish': {
                 data.content = {
                     title: {
+                        font: 'fontAlger',
                         text: 'Certificado',
-                        fontSize: 36,
-                        down: 1
+                        fontSize: 38,
+                        down: 0.8
                     },
                     subtitle: 'Número de registro:',
                     duration: 'Ha realizado con éxito el curso de',
@@ -81,9 +90,10 @@ function generatePDF (data) {
             case 'Deutsch': {
                 data.content = {
                     title: {
+                        font: 'fontAlger',
                         text: 'Teilnahmezertifikat',
                         fontSize: 30,
-                        down: 1.4
+                        down: 1.3
                     },
                     subtitle: 'Nummer der Registrierung:',
                     duration: 'für erfolgreich abgeschlossenen Sprachkurs mit',
@@ -99,9 +109,10 @@ function generatePDF (data) {
             case 'French': {
                 data.content = {
                     title: {
+                        font: 'fontAlger',
                         text: 'Certificat',
-                        fontSize: 36,
-                        down: 1
+                        fontSize: 38,
+                        down: 0.8
                     },
                     subtitle: 'N° de registre:',
                     duration: 'a réussi un cours de',
@@ -114,12 +125,51 @@ function generatePDF (data) {
                     teacher: 'Enseignant: '
                 }
             } break;
+            case 'Italian': {
+                data.content = {
+                    title: {
+                        font: 'fontAlger',
+                        text: 'Attestato',
+                        fontSize: 38,
+                        down: 0.8
+                    },
+                    subtitle: 'Registrazione:',
+                    duration: 'ha completato il corso di',
+                    duration2: `${data.duration} ore`,
+                    dates: `dal ${formatDateToDDMMYYYY(data.fromDate)} al ${formatDateToDDMMYYYY(data.toDate)}`,
+                    subject: 'Lingua ITALIANA',
+                    level: `Livello ${data.level}`,
+                    frame: 'In accordanza con il Quadro Comune Europeo',
+                    date: 'Data: ',
+                    teacher: 'Insegnante: '
+                }
+            } break;
+            case 'Български': {
+                data.content = {
+                    title: {
+                        font: 'Georgia-B',
+                        text: 'СЕРТИФИКАТ',
+                        fontSize: 36,
+                        down: 1.2
+                    },
+                    subtitle: 'Регитрационен №:',
+                    duration: 'за успешно покриване на езиков курс ',
+                    duration2: `${data.duration} уч. ч.`,
+                    dates: `от ${formatDateToDDMMYYYY(data.fromDate)} до ${formatDateToDDMMYYYY(data.toDate)}`,
+                    subject: 'БЪЛГАРСКИ език',
+                    level: `Ниво ${data.level}`,
+                    frame: 'в съответствие с Европейска Езикова Рамка',
+                    date: 'Дата: ',
+                    teacher: 'Преподавател: '
+                }
+            } break;
             default: {
                 data.content = {
                     title: {
+                        font: 'fontAlger',
                         text: 'Certificate',
-                        fontSize: 36,
-                        down: 1
+                        fontSize: 38,
+                        down: 0.8
                     },
                     subtitle: 'Registration number:',
                     duration: 'of successful completion of a course of',
@@ -135,35 +185,35 @@ function generatePDF (data) {
         }
 
 
-        doc.font('fontAlger').fontSize(data.content.title.fontSize).moveDown(data.content.title.down).text(data.content.title.text, { align: 'center' });
-        doc.font('Times-Bold').fontSize(18).moveDown(2).text(data.content.subtitle + ' ' + data.regNumber, { align: 'center' });
-        doc.font('Times-Bold').fontSize(24).moveDown(1).text(data.name, { align: 'center' });
-        doc.font('Times-Bold').fontSize(12).moveDown(0.2).text(data.content.duration, { align: 'center' });
-        doc.font('Times-Bold').fontSize(12).text(data.content.duration2, { align: 'center' });
-        doc.font('Times-Bold').fontSize(12).text(data.content.dates, { align: 'center' });
-        doc.font('Times-Bold').fontSize(24).moveDown(1).text(data.content.subject, { align: 'center' });
-        doc.font('Times-Bold').fontSize(24).moveDown(0.2).text(data.content.level, { align: 'center' });
-        doc.font('Times-Bold').fontSize(12).moveDown(0.8).text(data.content.frame, { align: 'center' });
-        doc.font('Times-Roman').fontSize(12).moveDown(2).text(data.teacher, 300, 468);
-        doc.font('Times-Bold').fontSize(12).moveDown(1).text(data.content.teacher, 300, 485);
-        doc.font('Times-Roman').fontSize(12).moveDown(1).text(formatDateToDDMMYYYY(data.toDate), 100, 468);
-        doc.font('Times-Bold').fontSize(12).moveDown(1).text(data.content.date, 100, 485);
+        doc.font(data.content.title.font).fontSize(data.content.title.fontSize).moveDown(data.content.title.down).text(data.content.title.text, { align: 'center' });
+        doc.font('Georgia').fontSize(18).moveDown(2).text(data.content.subtitle + ' ' + data.regNumber, { align: 'center' });
+        doc.font('Georgia-B').fontSize(24).moveDown(1).text(data.name, { align: 'center' });
+        doc.font('Georgia').fontSize(12).moveDown(0.2).text(data.content.duration, { align: 'center' });
+        doc.font('Georgia').fontSize(12).text(data.content.duration2, { align: 'center' });
+        doc.font('Georgia').fontSize(12).text(data.content.dates, { align: 'center' });
+        doc.font('Georgia-B').fontSize(18).moveDown(1).text(data.content.subject, { align: 'center' });
+        doc.font('Georgia-B').fontSize(18).moveDown(0.2).text(data.content.level, { align: 'center' });
+        doc.font('Georgia').fontSize(12).moveDown(0.8).text(data.content.frame, { align: 'center' });
+        doc.font('Georgia').fontSize(12).moveDown(2).text(data.teacher, 300, 465);
+        doc.font('Georgia').fontSize(12).moveDown(1).text(data.content.teacher, 300, 482);
+        doc.font('Georgia').fontSize(12).moveDown(1).text(formatDateToDDMMYYYY(data.toDate), 100, 465);
+        doc.font('Georgia').fontSize(12).moveDown(1).text(data.content.date, 100, 482);
 
         const rightEdge = 740;
         let textWidth = doc.font('fontAlger').fontSize(18).widthOfString("HOME");
         doc.text("HOME", rightEdge - textWidth, 95);
 
         // For "Language centre"
-        textWidth = doc.font('Times-Bold').fontSize(10).widthOfString("Language centre");
-        doc.text("Language centre", rightEdge - textWidth, 115);
+        textWidth = doc.font('Georgia').fontSize(10).widthOfString("language centre");
+        doc.text("language centre", rightEdge - textWidth, 115);
 
         // For "ezikovdom.com"
-        textWidth = doc.font('Times-Bold').fontSize(10).widthOfString("ezikovdom.com");
+        textWidth = doc.font('Georgia').fontSize(10).widthOfString("ezikovdom.com");
         doc.text("ezikovdom.com", rightEdge - textWidth, 135);
 
         // For "(+359).885.786.317"
         textWidth = doc.font('Times-Bold').fontSize(10).widthOfString("(+359).885.786.317");
-        doc.text("(+359).885.786.317", rightEdge - textWidth, 150);
+        doc.text("(+359).885.786.317", rightEdge - textWidth, 155);
 
         doc.end();
     });

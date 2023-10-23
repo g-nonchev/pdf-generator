@@ -41,7 +41,7 @@ const formatDate = (date: Date) => dayjs(date).format('DD-MM-YYYY');
         @click="handleRowClick(certificate)">
           <td>{{ certificate.regNumber }}</td>
           <td>{{ certificate.name }}</td>
-          <td>{{ certificate.subject }}</td>
+          <td class="bold">{{ certificate.subject }}</td>
           <td>{{ certificate.level }}</td>
           <td>{{ certificate.duration }}</td>
           <td>{{ formatDate(certificate.fromDate) }}</td>

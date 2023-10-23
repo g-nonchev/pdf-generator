@@ -3,6 +3,7 @@ import { ref} from 'vue';
 import Modal from '@/components/Modal.vue';
 import AddForm from '@/components/AddForm.vue';
 import DataTable from '@/components/DataTable.vue';
+import LoginComponent from '@/components/LoginComponent.vue';
 import { useModal } from '@/composables/useModal';
 import { useModalStore } from '@/stores/modalStore'
 
@@ -17,6 +18,7 @@ const openModal = () => {
 
 <template>
   <div id="app" class="flex demo">
+    <LoginComponent />
     <div class="p-1 full">
       <button class="success full" @click="openModal">Add New</button>
     </div>

@@ -54,3 +54,7 @@ table {
 .edited-row {
   background-color: #fdff79!important; /* Example: light blue background */
 }
+
+.bold{
+  font-weight: bold;
+}
