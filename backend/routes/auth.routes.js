@@ -10,14 +10,14 @@ router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
 router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('http://localhost:8080'); // Redirect to the frontend Vue app
+    res.redirect('http://localhost:5173'); // Redirect to the frontend Vue app
   }
 );
 
 // Logout
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('http://localhost:8080'); // Redirect to the frontend Vue app
+  res.redirect('http://localhost:5173'); // Redirect to the frontend Vue app
 });
 
 module.exports = router;
