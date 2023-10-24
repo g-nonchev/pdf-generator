@@ -9,6 +9,7 @@
 import { ref, onMounted } from 'vue';
 import { user, isAuthenticated } from '@/stores/authStore';
 import authService from '@/services/authService';
+
 const loginWithGoogle = () => {
   authService.loginWithGoogle();
 };
@@ -22,9 +23,6 @@ const logout = async () => {
 };
 
 onMounted(() => {
-  if (authService.checkLoginSuccess()) {
-    user.value = { name: 'John Doe' };  // In a real-world app, you'd get user details from the backend or a token.
-    isAuthenticated.value = true;
-  }
+  authService.setUserOnLoginSuccess();
 });
 </script>

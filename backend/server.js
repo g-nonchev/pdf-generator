@@ -9,9 +9,14 @@ const connectDB = require('./utils/database');
 const Sequence = require('./models/sequence.model');
 const ensureAuthenticated = require('./middleware/auth');
 
-dotenv.config();
+// const envFile = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env';
+const { config } = dotenv.config();
+
+console.log(dotenv.config())
+console.log(config.parsed.BACKEND_URI)
 
 const PORT = 4621;
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost';
 const app = express();
 
 // Middleware
@@ -48,7 +53,7 @@ app.use('/certificates', certificateRoutes);
 connectDB().then(() => {
   // Start the server
   app.listen(PORT, () => {
-    console.log(`Server started on http://localhost:${PORT}`);
+    console.log(`Server started on ${BACKEND_URL}:${PORT}`);
   });
 
   const initializeSequencesCollection = async () => {

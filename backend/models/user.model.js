@@ -8,6 +8,10 @@ const userSchema = new mongoose.Schema({
   displayName: {
     type: String,
     required: true
+  },
+  profileEmail: {
+    type: String,
+    required: true
   }
 });
 
