@@ -19,8 +19,8 @@ const formatDate = (date: Date) => dayjs(date).format('DD-MM-YYYY');
 </script>
   
 <template>
-  <div>
-    <table class="full center" v-if="certificates ">
+  <div class="full flex center">
+    <table v-if="certificates ">
       <thead>
         <tr>
           <th>N</th>

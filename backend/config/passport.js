@@ -2,7 +2,8 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/user.model');
 const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:4621';
 
-module.exports = function(passport) {
+
+module.exports = function (passport) {
   passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -12,6 +13,7 @@ module.exports = function(passport) {
 
     if (user) {
       return done(null, user);
+
     } else {
       return done(null, false, { message: 'Access restricted. Only specific accounts can access.' });
       // const newUser = new User({
@@ -26,11 +28,22 @@ module.exports = function(passport) {
   }));
 
   passport.serializeUser((user, done) => {
+    // console.log("Serializing user:", user);
     done(null, user.id);
   });
 
+
+
   passport.deserializeUser(async (id, done) => {
-    const user = await User.findById(id);
-    done(null, user);
+    try {
+      const user = await User.findById(id);
+      // console.log("Deserializing user:", user);
+      done(null, user);
+    } catch (err) {
+      // console.error("Error during deserialization:", err);
+      done(err);
+    }
   });
+
+
 };

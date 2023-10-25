@@ -17,8 +17,7 @@ const checkLoginSuccess = () => {
 // Logs out the user
 const logout = async () => {
   const response = await fetch(`${BASE_URL}/logout`, {
-    method: 'GET',
-    credentials: 'include'
+    method: 'POST',
   });
 
   if (response.ok) {
@@ -32,14 +31,11 @@ const logout = async () => {
 // On successful login, sets the user details
 const setUserOnLoginSuccess = () => {
   if (checkLoginSuccess()) {
-    user.value = { name: 'John Doe' };  // Mocking for now. Ideally, fetch user details from the backend.
     isAuthenticated.value = true;
   }
 };
 
 export default {
-  user,
-  isAuthenticated,
   loginWithGoogle,
   logout,
   setUserOnLoginSuccess

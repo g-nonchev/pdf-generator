@@ -18,16 +18,6 @@ const openModal = () => {
 
 <template>
   <div class="flex demo">
-    <LoginComponent v-if="!isAuthenticated" />
-    <template v-else>
-      <div class="p-1 full">
-        <button class="success full" @click="openModal">Add New</button>
-      </div>
-      <Modal v-model="modalStore.isModalOpen">
-        <!-- Your existing form goes here -->
-        <AddForm></AddForm>
-      </Modal>
-      <DataTable></DataTable>
-    </template>
+    <LoginComponent/>
   </div>
 </template>

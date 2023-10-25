@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import authService from '@/services/authService'; // Assuming this is the path to your combined authService
-
+import {isAuthenticated} from '@/stores/authStore';
 const routes = [
   {
     path: '/',
@@ -19,7 +19,7 @@ const routes = [
     component: () => import('../views/DataView.vue'),  // Assuming you have a view for this
     beforeEnter: (to, from, next) => {
       authService.setUserOnLoginSuccess();
-      if (authService.isAuthenticated.value) {
+      if (isAuthenticated.value) {
         next();  // Proceed to login-success view if authenticated
       } else {
         next({ name: 'home' });  // Redirect to home if not authenticated

@@ -2,7 +2,7 @@ const express = require('express');
 const Certificate = require('../models/certificate.model');
 const Sequence = require('../models/sequence.model');
 const pdfService = require('../services/pdfService');
-
+const ensureAuthenticated = require('../middleware/auth');
 const router = express.Router();
 
 const getNextSequenceValue = async (sequenceName) => {

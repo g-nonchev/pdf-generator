@@ -23,7 +23,8 @@ const createItem = async (formData: any) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ ...formData })
+            body: JSON.stringify({ ...formData }),
+            credentials: 'include'
         });
         const data = await response.json();
         certificates.value = [data, ...certificates.value];
@@ -40,7 +41,8 @@ const editItem = async (id: number, formData: any) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ ...formData })
+            body: JSON.stringify({ ...formData }),
+            credentials: 'include'
         });
 
         const data = await response.json();
@@ -120,7 +122,7 @@ const downloadItem = async (id: number) => {
 
 const getAllItems = async () => {
     try {
-        const response = await fetch(`${API_URL}/all`);
+        const response = await fetch(`${API_URL}/all`, {method: 'GET', credentials: 'include' });
 
         const data = await response.json();
         certificates.value = data;

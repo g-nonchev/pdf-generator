@@ -18,12 +18,13 @@ const openModal = () => {
 </script>
 
 <template>
-  <div class="p-1 full">
+  <div class="full flex center">
     <button class="success full" @click="openModal">Add New</button>
+    <DataTable></DataTable>
   </div>
   <Modal v-model="modalStore.isModalOpen">
     <!-- Your existing form goes here -->
     <AddForm></AddForm>
   </Modal>
-  <DataTable></DataTable>
+  
 </template>

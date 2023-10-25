@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <button @click="loginWithGoogle">Login with Google</button>
-    <button v-if="isAuthenticated" @click="logout">Logout</button>
+  <div class="flex demo center">
+    <button v-if="!isAuthenticated" @click="loginWithGoogle" class="warning">Login with Google</button>
+    <button v-else @click="logout">Logout</button>
   </div>
 </template>
 

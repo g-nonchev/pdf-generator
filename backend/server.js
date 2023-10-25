@@ -1,26 +1,23 @@
+const dotenv = require('dotenv');
 const express = require('express');
 const passport = require('passport');
 const session = require('express-session');
-const dotenv = require('dotenv');
 const cors = require('cors');
 const authRoutes = require('./routes/auth.routes');
 const certificateRoutes = require('./routes/certificate.routes');
 const connectDB = require('./utils/database');
 const Sequence = require('./models/sequence.model');
+const cookieParser = require('cookie-parser');
 const ensureAuthenticated = require('./middleware/auth');
 
-// const envFile = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env';
-const { config } = dotenv.config();
-
-console.log(dotenv.config())
-console.log(config.parsed.BACKEND_URI)
+const envFile = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env';
+dotenv.config({ path: envFile });
 
 const PORT = 4621;
-const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost';
 const app = express();
 
 // Middleware
-const allowedOrigins = ['http://127.0.0.1:5173', 'http://127.0.0.1:4173', 'http://localhost:5173', 'http://localhost:4173'];
+const allowedOrigins = ['http://127.0.0.1:5173', 'http://127.0.0.1:4173', 'http://localhost:5173', 'http://localhost:4173', 'https://diplom.ezikovdom.com'];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -29,16 +26,20 @@ app.use(cors({
     } else {
       callback(new Error('Not allowed by CORS'));
     }
-  }
+  },
+  methods: ['GET', 'POST'],
+  credentials: true
 }));
 
 app.use(express.json());
+// app.use(cookieParser(process.env.SESSION_SECRET)); 
 
 // Express session middleware
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  
 }));
 
 // Passport setup
@@ -48,12 +49,12 @@ app.use(passport.session());
 
 // Use routes
 app.use('/auth', authRoutes);
-app.use('/certificates', certificateRoutes);
+app.use('/certificates', ensureAuthenticated, certificateRoutes);
 
 connectDB().then(() => {
   // Start the server
   app.listen(PORT, () => {
-    console.log(`Server started on ${BACKEND_URL}:${PORT}`);
+    console.log(`Server started on ${process.env.BACKEND_URL}:${PORT}`);
   });
 
   const initializeSequencesCollection = async () => {

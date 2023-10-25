@@ -7,7 +7,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <!-- <RouterLink to="/about">About</RouterLink> -->
         <RouterLink to="/certificates">Certificates</RouterLink>
       </nav>
     </div>
@@ -30,13 +30,14 @@ header {
 }
 
 nav {
+  padding: 10px;
   width: 100%;
   font-size: 12px;
   text-align: center;
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  color: var(--color-success);
 }
 
 nav a.router-link-exact-active:hover {
