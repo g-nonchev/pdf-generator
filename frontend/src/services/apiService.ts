@@ -66,7 +66,8 @@ const editItem = async (id: number, formData: any) => {
 const deleteItem = async (id: string) => {
     try {
         const response = await fetch(`${API_URL}/delete/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            credentials: 'include'
         });
 
         const data = await response.json();
@@ -92,6 +93,7 @@ const downloadItem = async (id: number) => {
             headers: {
                 'Accept': 'application/octet-stream', // Assuming you're downloading binary data.
             },
+            credentials: 'include'
         });
 
         // Check if the response status is OK
