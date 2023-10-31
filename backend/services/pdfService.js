@@ -163,6 +163,25 @@ function generatePDF (data) {
                     teacher: 'Преподавател: '
                 }
             } break;
+            case 'Русский': {
+                data.content = {
+                    title: {
+                        font: 'Georgia-B',
+                        text: 'СЕРТИФИКАТ',
+                        fontSize: 36,
+                        down: 1.2
+                    },
+                    subtitle: 'Регистрационный номер:',
+                    duration: 'успешно прослушал(а) ',
+                    duration2: `${data.duration} часов`,
+                    dates: `от ${formatDateToDDMMYYYY(data.fromDate)} до ${formatDateToDDMMYYYY(data.toDate)}`,
+                    subject: 'Русский язык',
+                    level: `Ниво ${data.level}`,
+                    frame: 'в соответствии с Общеевропейской компетенцией владения иностранным языком',
+                    date: 'Дата выдачи:',
+                    teacher: 'Преподаватель: '
+                }
+            } break;
             default: {
                 data.content = {
                     title: {
@@ -195,9 +214,9 @@ function generatePDF (data) {
         doc.font('Georgia-B').fontSize(18).moveDown(0.2).text(data.content.level, { align: 'center' });
         doc.font('Georgia').fontSize(12).moveDown(0.8).text(data.content.frame, { align: 'center' });
         doc.font('Georgia').fontSize(12).moveDown(2).text(data.teacher, 300, 465);
-        doc.font('Georgia').fontSize(12).moveDown(1).text(data.content.teacher, 300, 482);
+        doc.font('Georgia-B').fontSize(10).moveDown(1).text(data.content.teacher, 300, 482);
         doc.font('Georgia').fontSize(12).moveDown(1).text(formatDateToDDMMYYYY(data.toDate), 100, 465);
-        doc.font('Georgia').fontSize(12).moveDown(1).text(data.content.date, 100, 482);
+        doc.font('Georgia-B').fontSize(10).moveDown(1).text(data.content.date, 100, 482);
 
         const rightEdge = 740;
         let textWidth = doc.font('fontAlger').fontSize(18).widthOfString("HOME");

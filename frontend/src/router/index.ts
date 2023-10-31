@@ -19,6 +19,7 @@ const routes = [
     component: () => import('../views/DataView.vue'),  // Assuming you have a view for this
     beforeEnter: (to, from, next) => {
       authService.setUserOnLoginSuccess();
+      console.log("Is authenticated?", isAuthenticated.value);
       if (isAuthenticated.value) {
         next();  // Proceed to login-success view if authenticated
       } else {
@@ -35,7 +36,8 @@ const router = createRouter({
 
 // Global navigation guard for other routes (if needed)
 // router.beforeEach((to, from, next) => {
-//   if (to.name !== 'certificates' && !authService.isAuthenticated.value) {
+//   console.log("Is authenticated?", isAuthenticated.value);
+//   if (to.name === 'certificates' && !isAuthenticated.value) {
 //     // If the user tries to access any other route (except login-success) and is not authenticated, redirect to home
 //     next({ name: 'home' });
 //   } else {
